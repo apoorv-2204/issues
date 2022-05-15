@@ -14,7 +14,7 @@ defmodule Issues.CLI do
 
   def process(:help) do
     IO.puts("""
-    Usage: <username> <project> <count>default: @default_count
+    Usage: <username> <project> <count>default: #{@default_count}
     """)
 
     System.halt(0)
