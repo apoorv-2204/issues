@@ -23,7 +23,7 @@ defmodule Issues.CLI do
       {[help: true], [], []} ->
         :help
 
-      {_, [username, project, size], _} ->
+      {_, [username, project, size], _} when is_number(size) ->
         {username, project, size}
 
       {_, [username, project], _} ->
