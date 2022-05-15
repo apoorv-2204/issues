@@ -22,15 +22,18 @@ defmodule Issues.CLI do
   """
   def parse_args(argv) do
     OptionParser.parse(argv, switches: [help: :boolean], aliases: [h: :help])
-    |> elem(1)
     |> args_to_internal_representation()
   end
 
-  def args_to_internal_representation([user, project, count]) do
+  def args_to_internal_representation({[help: true], [], []}) do
+    :help
+  end
+
+  def args_to_internal_representation({_, [user, project, count], _}) do
     {user, project, String.to_integer(count)}
   end
 
-  def args_to_internal_representation([user, project]) do
+  def args_to_internal_representation({_, [user, project], _}) do
     {user, project, @default_count}
   end
 

@@ -11,12 +11,11 @@ defmodule Issues.CLITest do
   end
 
   test "three values returned if three values given" do
-    assert parse_args(["eren", "jaeger", 5]) == {"eren", "jaeger", 5}
-    refute parse_args(["eren", "jaeger", "5"]) == {"eren", "jaeger", 5}
+    assert parse_args(["eren", "jaeger", "5"]) == {"eren", "jaeger", 5}
   end
 
   test "three values returned if two values given " do
-    assert parse_args(["armin", "atlet", "dot pyxis"]) == :help
+    assert parse_args(["armin"]) == :help
     # if key value paur then only it consider as that keyword list
     # argument was given
     assert parse_args(["hangi", "levi"]) == {"hangi", "levi", 10}
