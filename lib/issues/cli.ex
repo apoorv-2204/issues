@@ -7,7 +7,21 @@ defmodule Issues.CLI do
   @default_count 10
 
   def run(argv) do
-    parse_args(argv)
+    argv
+    |> parse_args()
+    |> process()
+  end
+
+  def process(:help) do
+    IO.puts("""
+    Usage: <username> <project> <count>default: @default_count
+    """)
+
+    System.halt(0)
+  end
+
+  def process({user, project, count}) do
+    Issues.GithubIssues.fetch_issues(user, project, count)
   end
 
   @doc """
