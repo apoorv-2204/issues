@@ -23,8 +23,8 @@ defmodule Issues.CLI do
       {[help: true], [], []} ->
         :help
 
-      {_, [username, project, size], _} when is_number(size) ->
-        {username, project, size}
+      {_, [username, project, size], _} ->
+        {username, project, String.to_integer(size)}
 
       {_, [username, project], _} ->
         {username, project, @default_count}
