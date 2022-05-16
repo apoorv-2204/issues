@@ -2,7 +2,20 @@ defmodule Issues.CLITest do
   use ExUnit.Case, async: true
   doctest Issues.CLI
 
-  import Issues.CLI, only: [parse_args: 1]
+  import Issues.CLI, only: [parse_args: 1, sort_into_desc_order: 1]
+
+  test "check sort in desc order " do
+    desc_issues = sort_into_desc_order(create_list())
+    vals = for issue <- desc_issues, do: Map.get(issue, "created_at")
+    assert vals == ~w(e d c b a)
+  end
+
+  def create_list() do
+    values = ["a", "b", "c", "e", "d"]
+
+    for val <- values,
+        do: %{"created_at" => val, "rnd" => "random_data"}
+  end
 
   test "parse_args/1 :help return by option parser with options -h --help" do
     # list of argv delimited by space

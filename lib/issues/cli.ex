@@ -22,6 +22,21 @@ defmodule Issues.CLI do
 
   def process({user, project, count}) do
     Issues.GithubIssues.fetch_issues(user, project, count)
+    |> decode_response()
+    |> sort_into_desc_order()
+  end
+
+  def sort_into_desc_order(list_of_issues) do
+    Enum.sort(list_of_issues, fn i1, i2 ->
+      i1["created_at"] >= i2["created_at"]
+    end)
+  end
+
+  def decode_response({:ok, body}), do: body
+
+  def decode_response({:error, error}) do
+    IO.puts(error)
+    System.halt(2)
   end
 
   @doc """
@@ -34,6 +49,7 @@ defmodule Issues.CLI do
   conditonal logic
   and too long
   """
+
   def parse_args(argv) do
     OptionParser.parse(argv, switches: [help: :boolean], aliases: [h: :help])
     |> args_to_internal_representation()
