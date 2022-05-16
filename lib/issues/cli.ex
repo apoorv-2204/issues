@@ -8,7 +8,7 @@ defmodule Issues.CLI do
 
   alias Issues.TableFormatter
 
-  def run(argv) do
+  def main(argv) do
     argv
     |> parse_args()
     |> process()
