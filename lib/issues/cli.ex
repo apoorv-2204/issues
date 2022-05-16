@@ -4,7 +4,9 @@ defmodule Issues.CLI do
   the various functions that end up generating a
   table of the last _N_  issues in a github project
   """
-  @default_count 10
+  @default_count 3
+
+  alias Issues.TableFormatter
 
   def run(argv) do
     argv
@@ -24,6 +26,12 @@ defmodule Issues.CLI do
     Issues.GithubIssues.fetch_issues(user, project, count)
     |> decode_response()
     |> sort_into_desc_order()
+    |> latest_issues(count)
+    |> TableFormatter.print_table_for_cols(["number", "created_at", "title"])
+  end
+
+  def latest_issues(list, count) do
+    list |> Enum.take(count) |> Enum.reverse()
   end
 
   def sort_into_desc_order(list_of_issues) do
