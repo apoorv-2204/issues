@@ -31,6 +31,6 @@ defmodule Issues.CLITest do
     assert parse_args(["armin"]) == :help
     # if key value paur then only it consider as that keyword list
     # argument was given
-    assert parse_args(["hangi", "levi"]) == {"hangi", "levi", 10}
+    assert parse_args(["hangi", "levi"]) == {"hangi", "levi", 3}
   end
 end
